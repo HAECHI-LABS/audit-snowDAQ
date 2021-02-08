@@ -243,6 +243,7 @@ contract MultiTransferToken is StandardToken, Ownable {
         uint256 amountSum = 0;
     
         for (ui = 0; ui < _to.length; ui++) {
+            require(blackList[_to[ui]] != true);
             require(_to[ui] != address(0));
 
             amountSum = amountSum.add(_amount[ui]);
@@ -292,6 +293,7 @@ contract MintableToken is StandardToken, Ownable {
     modifier canMint() { require(!mintingFinished); _; }
 
     function mint(address _to, uint256 _amount) onlyOwner canMint public returns (bool) {
+        require(blackList[_to] != true);
         totalSupply_ = totalSupply_.add(_amount);
         balances[_to] = balances[_to].add(_amount);
     
@@ -314,6 +316,8 @@ contract MintableToken is StandardToken, Ownable {
 contract PausableToken is StandardToken, Pausable, BlackList {
 
     function transfer(address _to, uint256 _value) public whenNotPaused CheckBlackList returns (bool) {
+        require(blackList[_to] != true);
+
         return super.transfer(_to, _value);
     }
 
