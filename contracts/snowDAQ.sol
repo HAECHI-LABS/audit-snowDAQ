@@ -234,7 +234,7 @@ contract StandardToken is ERC20, BasicToken {
 // @title MultiTransfer Token
 // @dev Only Admin
 // ----------------------------------------------------------------------------
-contract MultiTransferToken is StandardToken, Ownable {
+contract MultiTransferToken is StandardToken, Ownable, BlackList {
 
     function MultiTransfer(address[] _to, uint256[] _amount) onlyOwner public returns (bool) {
         require(_to.length == _amount.length);
@@ -265,7 +265,7 @@ contract MultiTransferToken is StandardToken, Ownable {
 // @title Burnable Token
 // @dev Token that can be irreversibly burned (destroyed).
 // ----------------------------------------------------------------------------
-contract BurnableToken is StandardToken, Ownable {
+contract BurnableToken is StandardToken, Ownable, BlackList {
 
     event BurnAdminAmount(address indexed burner, uint256 value);
 
@@ -284,7 +284,7 @@ contract BurnableToken is StandardToken, Ownable {
 // @dev Simple ERC20 Token example, with mintable token creation
 // Based on code by TokenMarketNet: https://github.com/TokenMarketNet/ico/blob/master/contracts/MintableToken.sol
 // ----------------------------------------------------------------------------
-contract MintableToken is StandardToken, Ownable {
+contract MintableToken is StandardToken, Ownable, BlackList {
     event Mint(address indexed to, uint256 amount);
     event MintFinished();
 
